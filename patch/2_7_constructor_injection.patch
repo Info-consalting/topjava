@@ -1,0 +1,44 @@
+Index: src/main/java/ru/javawebinar/topjava/service/UserServiceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/ru/javawebinar/topjava/service/UserServiceImpl.java	(date 1530653665000)
++++ src/main/java/ru/javawebinar/topjava/service/UserServiceImpl.java	(date 1530653786000)
+@@ -14,8 +14,12 @@
+ @Service
+ public class UserServiceImpl implements UserService {
+ 
++    private final UserRepository repository;
++
+     @Autowired
+-    private UserRepository repository;
++    public UserServiceImpl(UserRepository repository) {
++        this.repository = repository;
++    }
+ 
+     @Override
+     public User create(User user) {
+Index: src/main/resources/spring/spring-app.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/spring/spring-app.xml	(date 1530653665000)
++++ src/main/resources/spring/spring-app.xml	(date 1530653786000)
+@@ -5,11 +5,11 @@
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+ 
+     <!--
+-        <bean class="ru.javawebinar.topjava.repository.mock.MockUserRepositoryImpl" id="mockUserRepository"/>
++            <bean class="ru.javawebinar.topjava.repository.mock.MockUserRepositoryImpl" id="mockUserRepository"/>
+ 
+-        <bean class="ru.javawebinar.topjava.service.UserServiceImpl">
+-            <property name="repository" ref="mockUserRepository"/>
+-        </bean>
++            <bean class="ru.javawebinar.topjava.service.UserServiceImpl">
++                <constructor-arg name="repository" ref="mockUserRepository"/>
++            </bean>
+     -->
+ 
+     <!-- Not necessary, already included with component-scan -->
